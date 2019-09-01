@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             onDessertClicked()
         }
 
-        dessertTimer = DessertTimer()
+        dessertTimer = DessertTimer(this.lifecycle)
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -162,7 +163,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         super.onStart()
         Log.i("MainActivity", "onStart called")
         Timber.i("onStart called")
-        dessertTimer.startTimer()
     }
 
     override fun onResume() {
@@ -188,6 +188,5 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onStop() {
         super.onStop()
         Timber.i("onStop called")
-        dessertTimer.stopTimer()
     }
 }
